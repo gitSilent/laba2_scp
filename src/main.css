@@ -1,0 +1,9 @@
+html{
+    height: 100%;
+}
+body{
+    /* background-image: url("./imgs/bg.jpeg"); */
+    background-image: linear-gradient(to right top, #051937, #233f60, #42698a, #6496b5, #89c5e0);
+    background-repeat: no-repeat;
+    height: 100%;
+}
