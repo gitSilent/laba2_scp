@@ -1,18 +1,21 @@
-FROM node:18.0.0 
+# FROM node:18.0.0 
 
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+# COPY package.json package.json
+# COPY package-lock.json package-lock.json
 
-RUN npm install
+# RUN npm install
 
-COPY . .
+# COPY . .
 
-RUN npm run build
+# RUN npm run build
 
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
+
+
+
 # FROM node:current-alpine
 # WORKDIR /app
 
@@ -21,3 +24,23 @@ CMD ["npm", "start"]
 
 # COPY . .
 # CMD ["yarn","start"]
+
+
+# FROM node
+# WORKDIR /app
+# COPY package.json .
+# RUN npm install
+# COPY . .
+# EXPOSE 300
+# CMD ["npm","start"]
+
+FROM node:12-alpine as build
+WORKDIR /app
+COPY package.json /app/package.json
+RUN npm install --only=prod
+COPY . /app
+RUN npm run build
+FROM nginx:1.16.0-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 140
+CMD ["nginx", "-g", "daemon off;"]

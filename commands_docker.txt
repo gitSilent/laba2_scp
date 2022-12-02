@@ -1,0 +1,3 @@
+docker build -t react-app-testing .
+
+docker run -d -p 1337:80 react-app-testing
